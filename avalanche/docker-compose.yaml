@@ -1,0 +1,19 @@
+avalanche:
+  image: avaplatform/avalanchego
+  container_name: avax
+  #command: ["daemon", "--migrate=true", "--enable-pubsub-experiment"]
+  command:
+    [
+      "/avalanchego/build/avalanchego",
+      "--db-dir=/data/avax",
+#      "--bootstrap-retry-max-attempts=10000",
+      "--api-admin-enabled=true",
+      "--http-host=0.0.0.0",
+      "--bootstrap-retry-enabled"
+    ]
+  ports:
+    - 9650:9650
+    - 9651:9651
+  volumes:
+    - ./avax-data:/data/avax
+  restart: unless-stopped
