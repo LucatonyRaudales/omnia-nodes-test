@@ -1,0 +1,40 @@
+version: '3'
+services:
+  node1:
+    build: .
+    command: btcd -u USER -P PASS --rpclisten=0.0.0.0:18556 --listen=0.0.0.0:18555 --simnet --connect=10.6.0.12:18555 --connect=10.6.0.13:18555 --connect=10.6.0.14:18555 --miningaddr=SSwfPFMdZMGvQ5VyBQsHPdy69sPxevhxe5
+    cap_add:
+      - ALL
+    networks:
+      vpcbr:
+        ipv4_address: 10.6.0.11
+  node2:
+    build: .
+    command: btcd -u USER -P PASS --rpclisten=0.0.0.0:18556 --listen=0.0.0.0:18555 --simnet --connect=10.6.0.11:18555 --connect=10.6.0.13:18555 --connect=10.6.0.14:18555 --miningaddr=SSwfPFMdZMGvQ5VyBQsHPdy69sPxevhxe5
+    cap_add:
+      - ALL
+    networks:
+      vpcbr:
+        ipv4_address: 10.6.0.12
+  node3:
+    build: .
+    command: btcd -u USER -P PASS --rpclisten=0.0.0.0:18556 --listen=0.0.0.0:18555 --simnet --connect=10.6.0.12:18555 --connect=10.6.0.11:18555 --connect=10.6.0.14:18555 --miningaddr=SSwfPFMdZMGvQ5VyBQsHPdy69sPxevhxe5
+    cap_add:
+      - ALL
+    networks:
+      vpcbr:
+        ipv4_address: 10.6.0.13
+  node4:
+    build: .
+    command: btcd -u USER -P PASS --rpclisten=0.0.0.0:18556 --listen=0.0.0.0:18555 --simnet --connect=10.6.0.12:18555 --connect=10.6.0.13:18555 --connect=10.6.0.11:18555 --miningaddr=SSwfPFMdZMGvQ5VyBQsHPdy69sPxevhxe5
+    cap_add:
+      - ALL
+    networks:
+      vpcbr:
+        ipv4_address: 10.6.0.14
+networks:
+  vpcbr:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 10.6.0.0/16

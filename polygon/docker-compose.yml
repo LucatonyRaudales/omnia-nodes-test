@@ -1,46 +1,57 @@
-version: '3.4'
-
+version: "3.4"
 services:
   rabbitmq:
     container_name: rabbitmq
-    image: rabbitmq:3-alpine
-    ports:
-      - "5672:5672" # RabbitMQ
+    image: "rabbitmq:3-alpine"
     restart: unless-stopped
-  
   heimdalld:
-    container_name: heimdalld
-    image: heimdall:latest
-    build: /data/github/heimdall
-    restart: unless-stopped
-    #volumes:
-     # - /data/volumes/heimdall:/root/.heimdalld
+    build: &ref_0
+      args:
+        UPSTREAM_VERSION: v0.2.8
+      context: ./build/heimdall
+      dockerfile: Dockerfile
+    volumes:
+      - "heimdall:/root/.heimdalld"
     ports:
-      - "26656:26656" # P2P (TCP)
-      - "26657:26657" # RPC (TCP)
+      - "26656:26656"
     depends_on:
       - rabbitmq
-    command:
-      - heimdalld
-      - start
-      - --moniker=MyNodeName
-      - --p2p.laddr=tcp://0.0.0.0:26656
-      - --rpc.laddr=tcp://0.0.0.0:26657
-
-  heimdallr:
-    container_name: heimdallr
-    image: heimdall:latest
-    build: /data/github/heimdall
+    environment:
+      - MONIKER=
+      - SNAPSHOT_URL=https://matic-blockchain-snapshots.s3-accelerate.amazonaws.com/matic-mainnet/heimdall-snapshot-pre-v0.2.8hardfork2022-03-17.tar.gz
+      - BOOTSTRAP=1
+      - ETH1_RPC_URL=http://fullnode.dappnode:8545
+      - BOOTNODES=
     restart: unless-stopped
-    #volumes:
-     # - /data/volumes/heimdall:/root/.heimdalld
-    ports:
-      - "1317:1317" # Heimdall REST API
+  heimdallr:
+    environment:
+      - REST_SERVER=1
+      - ETH1_RPC_URL=http://fullnode.dappnode:8545
+    build: *ref_0
+    volumes:
+      - "heimdall:/root/.heimdalld"
     depends_on:
       - heimdalld
-    command:
-      - heimdalld
-      - rest-server
-      - --chain-id=137
-      - --laddr=tcp://0.0.0.0:1317
-      - --node=tcp://heimdalld:26657
+    restart: unless-stopped
+  bor:
+    build:
+      args:
+        UPSTREAM_VERSION: v0.2.14-tmp-span-hotfix
+      context: ./build/bor
+      dockerfile: Dockerfile
+    environment:
+      - SNAPSHOT_URL=https://matic-blockchain-snapshots.s3-accelerate.amazonaws.com/matic-mainnet/bor-pruned-snapshot-2022-03-13.tar.gz
+      - BOOTSTRAP=1
+      - MAXPEERS=
+    volumes:
+      - "bor:/datadir"
+    ports:
+      - "40303:40303"
+      - "40303:40303/udp"
+    depends_on:
+      - heimdallr
+    restart: unless-stopped
+volumes:
+  rabbitmq: {}
+  heimdall: {}
+  bor: {}
