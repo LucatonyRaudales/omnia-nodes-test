@@ -1,0 +1,1 @@
+  https://github.com/amacneil/docker-bitcoin/tree/master/example
