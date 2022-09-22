@@ -9,7 +9,7 @@
         dest: ~/omnia
         force: yes
 
-    - name: Run bitcoin nodes
+    - name: Run bitcoin mainnet and testnetnodes
       docker_compose:
         project_src: omnia/bitcoin 
         state: present

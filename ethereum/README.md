@@ -15,3 +15,5 @@ Then you can create an account, for example:
 Don't know what to do? Explore it using the help command:
 
     docker run --rm -it ethereum/client-go:stable --help
+
+    to apply ethereum node with ansible: ansible-playbook ansible/playbooks/ethereum.yml -l digitalocean -i ~/learn/omnia/omnia-nodes-test/ansible/config/hosts

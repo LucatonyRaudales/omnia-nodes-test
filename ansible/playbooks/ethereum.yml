@@ -1,0 +1,15 @@
+- hosts: all
+  become: true
+
+  tasks:
+
+    - name: Copy Ethereum folder
+      copy:
+        src: ~/learn/omnia/omnia-nodes-test/ethereum
+        dest: ~/omnia
+        force: yes
+
+    - name: Run ethereum mainnet and testnet nodes
+      docker_compose:
+        project_src: omnia/ethereum 
+        state: present
