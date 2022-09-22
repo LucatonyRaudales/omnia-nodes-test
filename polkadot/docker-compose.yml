@@ -1,0 +1,50 @@
+version: '3'
+services:
+  node_alice:
+    image: chevdor/polkadot:${TAG:-latest}
+    container_name: alice
+    command: >
+      polkadot --chain=local --alice -d /data --ws-external --rpc-cors all --validator --node-key 0000000000000000000000000000000000000000000000000000000000000001
+    ports:
+      - "30333:30333"
+      - "9933:9933"
+      - "9944:9944"
+    volumes:
+      - "polkadot-data-alice:/data"
+    networks:
+      testing_net:
+        ipv4_address: 172.28.1.1
+
+  node_bob:
+    image: chevdor/polkadot:${TAG:-latest}
+    container_name: bob
+    command: >
+      polkadot --chain=local --bob -d /data --ws-external --rpc-cors all --validator --bootnodes '/ip4/172.28.1.1/tcp/30333/p2p/QmQZ8TjTqeDj3ciwr93EJ95hxfDsb9pEYDizUAbWpigtQN'
+    ports:
+      - "30335:30333"
+      - "9935:9933"
+      - "9945:9944"
+    volumes:
+      - "polkadot-data-bob:/data"
+    links:
+      - "node_alice:alice"
+    networks:
+      testing_net:
+        ipv4_address: 172.28.1.2
+
+  ui:
+    container_name: ui
+    image: chevdor/polkadot-ui
+    ports:
+      - "80:80"
+      
+volumes:
+  polkadot-data-alice:
+  polkadot-data-bob:
+
+networks:
+  testing_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.28.0.0/16

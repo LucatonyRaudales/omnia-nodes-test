@@ -1,0 +1,15 @@
+- hosts: all
+  become: true
+
+  tasks:
+
+    - name: Copy Bitcoin folder
+      copy:
+        src: ~/learn/omnia/omnia-nodes-test/bitcoin
+        dest: ~/omnia
+        force: yes
+
+    - name: Run bitcoin nodes
+      docker_compose:
+        project_src: omnia/bitcoin 
+        state: present

@@ -1,0 +1,1 @@
+to apply bitcoin node with ansible: ansible-playbook ansible/playbooks/bitcoin.yml -l digitalocean -i ~/learn/omnia/omnia-nodes-test/ansible/config/hosts

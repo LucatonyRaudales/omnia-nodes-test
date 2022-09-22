@@ -9,3 +9,10 @@ curl -X POST --data '{
 
 
 https://docs.avax.network/community/tutorials-contest/2021/red-dev-avalanche-chainlink-tutorial
+
+//////////////
+
+To check node use this guide:
+
+https://docs.avax.network/nodes/maintain/setting-up-node-monitoring
+
