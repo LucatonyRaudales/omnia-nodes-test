@@ -1,0 +1,1 @@
+to apply polkadot node with ansible: ansible-playbook ansible/playbooks/polkadot.yml -l digitalocean -i ~/learn/omnia/omnia-nodes-test/ansible/config/hosts

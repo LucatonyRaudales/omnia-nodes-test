@@ -1,0 +1,15 @@
+- hosts: all
+  become: true
+
+  tasks:
+
+    - name: Copy polkadot folder
+      copy:
+        src: ~/learn/omnia/omnia-nodes-test/polkadot
+        dest: ~/omnia
+        force: yes
+
+    - name: Run polkadot mainnet and testnet nodes
+      docker_compose:
+        project_src: omnia/polkadot 
+        state: present
