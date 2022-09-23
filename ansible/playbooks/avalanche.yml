@@ -1,0 +1,15 @@
+- hosts: all
+  become: true
+
+  tasks:
+
+    - name: Copy avalanche folder
+      copy:
+        src: ~/learn/omnia/omnia-nodes-test/avalanche
+        dest: ~/omnia
+        force: yes
+
+    - name: Run avalanche mainnet and testnetnodes
+      docker_compose:
+        project_src: omnia/avalanche 
+        state: present

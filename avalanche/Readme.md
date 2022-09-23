@@ -1,18 +1,6 @@
-curl -X POST --data '{
-    "jsonrpc":"2.0",
-    "id"     :1,
-    "method" :"info.isBootstrapped",
-    "params": {
-        "chain":"C"
-    }
-}' -H 'content-type:application/json;' 127.0.0.1:9650/ext/info
+# to apply avalanche nodes with ansible
+at the root of this repository run
 
-
-https://docs.avax.network/community/tutorials-contest/2021/red-dev-avalanche-chainlink-tutorial
-
-//////////////
-
-To check node use this guide:
-
-https://docs.avax.network/nodes/maintain/setting-up-node-monitoring
-
+```bash
+ansible-playbook ansible/playbooks/avalanche.yml -l omnia -i ~/learn/omnia/omnia-nodes-test/ansible/config/hosts
+```

@@ -1,1 +1,6 @@
-to apply bitcoin node with ansible: ansible-playbook ansible/playbooks/bitcoin.yml -l digitalocean -i ~/learn/omnia/omnia-nodes-test/ansible/config/hosts
+# to apply bitcoin nodes with ansible
+at the root of this repository run
+
+```bash
+ansible-playbook ansible/playbooks/bitcoin.yml -l omnia -i ~/learn/omnia/omnia-nodes-test/ansible/config/hosts
+```

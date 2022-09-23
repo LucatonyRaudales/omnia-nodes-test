@@ -1,10 +1,27 @@
-First:
-  We need to install ansible in our machines
-  know where is our private ssh key
-  setting up the address in our inventory file
-  and make a ping with the command:
-  the command to run on my local = ansible -m ping omnia -i ~/learn/omnia/omnia-nodes-test/ansible/config/hosts
+# Omnia - Tony Raudales test
 
-  after a successfull ping, we need to apply a playbook to update and install docker and docker compose with the command: ansible-playbook ansible/playbooks/docker.yml -l digitalocean -i ~/learn/omnia/omnia-nodes-test/ansible/config/hosts
+challenge: Run differents blockchains nodes for mainnet and testnet.
 
-  after that we can apply each node running the command specified into the Readme file in each chain folder 
+## How to run the nodes?
+I used docker/docker-compose to run the nodes, each chain have a specific folder that contain the docker-compose manifest.
+
+I used ansible tool to provision and manage the nodes in whatever vm, you only need to configure a new vm on ./ansible/config/host file.
+
+To use [ansible](https://www.ansible.com/) you need install it.
+
+steps to use this repository: 
+
+- We need to install ansible in our machines.
+  
+- know where is our private ssh key
+
+- setting up the address in our inventory file(./ansible/config/hosts)
+
+- and make a ping with the command at the root of this repository:
+```bash
+ansible -m ping omnia -i ~/learn/omnia/omnia-nodes-test/ansible/config/hostsr
+```
+the output should be success.
+ 
+After that we can apply each node running the command specified into the Readme file in each chain folder 
+## See you soon Omnia!

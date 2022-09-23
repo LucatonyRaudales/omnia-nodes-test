@@ -25,7 +25,7 @@ services:
     ports: 
       - 8546:8546
       - 8545:8545
-      - 30303:30303
+      - 30304:30303
 
   ethereum-testnet:
     image: ethereum/client-go

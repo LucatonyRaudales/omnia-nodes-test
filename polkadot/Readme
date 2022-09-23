@@ -1,1 +1,6 @@
-to apply polkadot node with ansible: ansible-playbook ansible/playbooks/polkadot.yml -l digitalocean -i ~/learn/omnia/omnia-nodes-test/ansible/config/hosts
+# to apply polkadot node with ansible
+at the root of this repository run
+
+```bash
+ansible-playbook ansible/playbooks/polkadot.yml -l omnia -i ~/learn/omnia/omnia-nodes-test/ansible/config/hosts
+```
